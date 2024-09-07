@@ -24,3 +24,4 @@ const analytics = getAnalytics(app);
 
 // Initialize Firestore
 const db = firebase.firestore();
+
