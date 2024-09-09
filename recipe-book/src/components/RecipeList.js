@@ -1,6 +1,5 @@
-// src/components/RecipeList.js
 import React, { useState, useEffect } from 'react';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot, doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase'; // Adjust path as needed
 
 function RecipeList() {
@@ -32,6 +31,16 @@ function RecipeList() {
     return () => unsubscribe();
   }, []);
 
+  const handleDelete = async (recipeId) => {
+    try {
+      // Delete the recipe document by its ID
+      await deleteDoc(doc(db, 'recipes', recipeId));
+      console.log('Recipe deleted successfully');
+    } catch (error) {
+      console.error('Error deleting recipe:', error);
+    }
+  };
+
   if (loading) {
     return <p>Loading recipes...</p>;
   }
@@ -49,14 +58,8 @@ function RecipeList() {
             <h3>{recipe.name}</h3>
             <p>{recipe.description}</p>
             <p><strong>Category:</strong> {recipe.category}</p>
-            <h4>Ingredients:</h4>
-            <ul>
-              {recipe.ingredients.map((ingredient, index) => (
-                <li key={index}>
-                  {ingredient.name} - {ingredient.quantity} {ingredient.unit}
-                </li>
-              ))}
-            </ul>
+            {/* Delete button for each recipe */}
+            <button onClick={() => handleDelete(recipe.id)}>Delete Recipe</button>
           </div>
         ))
       ) : (
