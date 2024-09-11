@@ -43,6 +43,7 @@ function ShoppingList() {
 
   const handleGenerateList = async () => {
     const ingredientsMap = {};
+    
 
     for (const recipeId of selectedRecipes) {
       const recipeDoc = await getDoc(doc(db, 'recipes', recipeId));
@@ -107,6 +108,7 @@ function ShoppingList() {
         {shoppingList.map((item, index) => (
           <li key={index}>
             {item.name} - {item.quantity} {item.unit}
+            <input type="checkbox"/>
           </li>
         ))}
       </ul>
