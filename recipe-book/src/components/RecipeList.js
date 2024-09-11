@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { collection, onSnapshot, doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase'; // Adjust path as needed
+import EditRecipe from './EditRecipe'; // Import the EditRecipe component
 
 function RecipeList() {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedRecipe, setSelectedRecipe] = useState(null); // To store the recipe selected for editing
 
   useEffect(() => {
     const recipesCollectionRef = collection(db, 'recipes');
@@ -41,6 +43,10 @@ function RecipeList() {
     }
   };
 
+  const handleEditClick = (recipe) => {
+    setSelectedRecipe(recipe); // Set the selected recipe for editing
+  };
+
   if (loading) {
     return <p>Loading recipes...</p>;
   }
@@ -60,10 +66,20 @@ function RecipeList() {
             <p><strong>Category:</strong> {recipe.category}</p>
             {/* Delete button for each recipe */}
             <button onClick={() => handleDelete(recipe.id)}>Delete Recipe</button>
+            {/* Edit button for each recipe */}
+            <button onClick={() => handleEditClick(recipe)}>Edit Recipe</button>
           </div>
         ))
       ) : (
         <p>No recipes found.</p>
+      )}
+
+      {/* Conditionally render EditRecipe component if a recipe is selected */}
+      {selectedRecipe && (
+        <EditRecipe
+          recipe={selectedRecipe}
+          onClose={() => setSelectedRecipe(null)} // Close the editor after saving
+        />
       )}
     </div>
   );
