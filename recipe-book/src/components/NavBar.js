@@ -14,6 +14,10 @@ function Navbar() {
     setIsOpen(!isOpen);
   };
 
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -21,22 +25,21 @@ function Navbar() {
           <h1>Recipe App</h1>
         </div>
         <div className="menu-icon" onClick={toggleMenu}>
-          {/* Use FontAwesomeIcon component instead of <i> tag */}
           <FontAwesomeIcon icon={isOpen ? faTimes : faBars} />
         </div>
         <ul className={isOpen ? 'nav-menu active' : 'nav-menu'}>
           <li className="nav-item">
-            <Link to="/view-shopping-lists" className="nav-links">
+            <Link to="/view-shopping-lists" className="nav-links" onClick={closeMenu}>
               View Shopping Lists
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/edit-recipes" className="nav-links">
+            <Link to="/edit-recipes" className="nav-links" onClick={closeMenu}>
               Edit Recipes
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/add-recipe" className="nav-links">
+            <Link to="/add-recipe" className="nav-links" onClick={closeMenu}>
               Add Recipe
             </Link>
           </li>
