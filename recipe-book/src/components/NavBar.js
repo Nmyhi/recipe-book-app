@@ -1,4 +1,6 @@
+// src/components/Navbar.js
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import '../Navbar.css';
 
 function Navbar() {
@@ -19,19 +21,19 @@ function Navbar() {
         </div>
         <ul className={isOpen ? 'nav-menu active' : 'nav-menu'}>
           <li className="nav-item">
-            <a href="/view-shopping-lists" className="nav-links">
+            <Link to="/view-shopping-lists" className="nav-links">
               View Shopping Lists
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a href="/edit-recipes" className="nav-links">
+            <Link to="/edit-recipes" className="nav-links">
               Edit Recipes
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a href="/add-recipe" className="nav-links">
+            <Link to="/add-recipe" className="nav-links">
               Add Recipe
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
