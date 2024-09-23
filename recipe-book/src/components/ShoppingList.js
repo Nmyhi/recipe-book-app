@@ -1,7 +1,7 @@
-// src/components/ShoppingList.js
 import { useState, useEffect } from 'react';
 import { collection, getDocs, doc, getDoc, addDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
+import '../ShoppingList.css'; // Import the CSS file for styling
 
 function ShoppingList() {
   const [recipes, setRecipes] = useState([]);
@@ -43,7 +43,6 @@ function ShoppingList() {
 
   const handleGenerateList = async () => {
     const ingredientsMap = {};
-    
 
     for (const recipeId of selectedRecipes) {
       const recipeDoc = await getDoc(doc(db, 'recipes', recipeId));
@@ -75,15 +74,15 @@ function ShoppingList() {
   }
 
   return (
-    <div>
+    <div className="shopping-list">
       <h2>Shopping List</h2>
       
       {/* Recipe selection */}
-      <div>
+      <div className="recipe-selection">
         <h4>Select Recipes:</h4>
         {recipes.length > 0 ? (
           recipes.map((recipe) => (
-            <div key={recipe.id}>
+            <div key={recipe.id} className="recipe-item">
               <input
                 type="checkbox"
                 id={recipe.id}
@@ -99,16 +98,16 @@ function ShoppingList() {
         )}
       </div>
 
-      <button onClick={handleGenerateList} disabled={selectedRecipes.length === 0}>
+      <button className="generate-button" onClick={handleGenerateList} disabled={selectedRecipes.length === 0}>
         Generate Shopping List
       </button>
 
       <h4>Shopping List</h4>
-      <ul>
+      <ul className="shopping-list-items">
         {shoppingList.map((item, index) => (
           <li key={index}>
             {item.name} - {item.quantity} {item.unit}
-            <input type="checkbox"/>
+            <input type="checkbox" />
           </li>
         ))}
       </ul>

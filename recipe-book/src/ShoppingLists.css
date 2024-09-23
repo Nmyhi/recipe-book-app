@@ -1,0 +1,76 @@
+/* ShoppingLists.css */
+
+.shopping-lists-container {
+    max-width: 800px; /* Set max width for the container */
+    margin: 0 auto; /* Center the container */
+    padding: 20px; /* Add padding */
+    background-color: #fff; /* White background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  .shopping-lists-title {
+    text-align: center; /* Center the title */
+    color: #333; /* Dark color for contrast */
+  }
+  
+  .loading-message,
+  .error-message,
+  .no-lists-message {
+    text-align: center; /* Center align messages */
+    color: #888; /* Gray color for messages */
+    margin: 20px 0; /* Space around messages */
+  }
+  
+  .shopping-lists-item {
+    margin: 20px 0; /* Space between shopping lists */
+    padding: 15px; /* Padding inside each item */
+    border: 1px solid #eaeaea; /* Border for separation */
+    border-radius: 5px; /* Rounded corners for items */
+    background-color: #f9f9f9; /* Light background for items */
+  }
+  
+  .shopping-list-name {
+    font-size: 1.5em; /* Font size for list name */
+    color: #333; /* Dark color for visibility */
+  }
+  
+  .ingredients-title {
+    margin-top: 10px; /* Space above ingredients title */
+    color: #555; /* Slightly lighter color */
+  }
+  
+  .ingredients-list {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+  }
+  
+  .ingredient-item {
+    display: flex; /* Flexbox layout for ingredient items */
+    align-items: center; /* Center items vertically */
+    padding: 10px 0; /* Padding for ingredient items */
+  }
+  
+  .ingredient-checkbox {
+    margin-right: 10px; /* Space between checkbox and text */
+  }
+  
+  .checked {
+    text-decoration: line-through; /* Strikethrough for checked items */
+    color: #888; /* Light color for checked text */
+  }
+  
+  .delete-button {
+    background-color: #e74c3c; /* Red background for delete button */
+    color: white; /* White text */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 15px; /* Padding inside button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for hover */
+    margin-top: 10px; /* Space above delete button */
+  }
+  
+  .delete-button:hover {
+    background-color: #c0392b; /* Darker red on hover */
+  }

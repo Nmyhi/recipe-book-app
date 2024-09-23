@@ -1,10 +1,9 @@
-// src/components/AddRecipe.js
 import { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../firebase.js';
+import '../AddRecipe.css'; // Import the CSS file for styling
 
-
-// function for adding recipes
+// Function for adding recipes
 function AddRecipe() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -41,23 +40,43 @@ function AddRecipe() {
   };
 
   return (
-    <div>
+    <div className="add-recipe-container">
       <h2>Add Recipe</h2>
-      <form onSubmit={handleSubmit}>
-        <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Recipe Name" required />
-        <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" required />
-        <input value={category} onChange={(e) => setCategory(e.target.value)} placeholder="Category" required />
+      <form onSubmit={handleSubmit} className="add-recipe-form">
+        <input 
+          className="form-input"
+          value={name} 
+          onChange={(e) => setName(e.target.value)} 
+          placeholder="Recipe Name" 
+          required 
+        />
+        <textarea 
+          className="form-textarea"
+          value={description} 
+          onChange={(e) => setDescription(e.target.value)} 
+          placeholder="Description" 
+          required 
+        />
+        <input 
+          className="form-input"
+          value={category} 
+          onChange={(e) => setCategory(e.target.value)} 
+          placeholder="Category" 
+          required 
+        />
         
         <h4>Ingredients</h4>
         {ingredients.map((ingredient, index) => (
-          <div key={index}>
+          <div key={index} className="ingredient-item">
             <input
+              className="form-input"
               value={ingredient.name}
               onChange={(e) => handleIngredientChange(index, 'name', e.target.value)}
               placeholder="Ingredient Name"
               required
             />
             <input
+              className="form-input quantity-input"
               value={ingredient.quantity}
               onChange={(e) => handleIngredientChange(index, 'quantity', e.target.value)}
               placeholder="Quantity"
@@ -65,6 +84,7 @@ function AddRecipe() {
               required
             />
             <input
+              className="form-input"
               value={ingredient.unit}
               onChange={(e) => handleIngredientChange(index, 'unit', e.target.value)}
               placeholder="Unit (e.g., grams, pieces)"
@@ -72,8 +92,10 @@ function AddRecipe() {
             />
           </div>
         ))}
-        <button type="button" onClick={handleAddIngredient}>Add Ingredient</button>
-        <button type="submit">Submit</button>
+        <button type="button" className="add-ingredient-button" onClick={handleAddIngredient}>
+          Add Ingredient
+        </button>
+        <button type="submit" className="submit-button">Submit</button>
       </form>
     </div>
   );

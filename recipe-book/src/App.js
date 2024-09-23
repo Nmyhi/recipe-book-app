@@ -7,6 +7,7 @@ import RecipeList from './components/RecipeList';
 import ShoppingList from './components/ShoppingList';
 import ShoppingLists from './components/ShoppingLists';
 
+
 function App() {
   return (
     <Router>
@@ -17,7 +18,7 @@ function App() {
           <Route path="/edit-recipes" element={<RecipeList />} /> 
           <Route path="/view-shopping-lists" element={<ShoppingLists />} />
           <Route path="/shopping-list" element={<ShoppingList />} />
-          <Route path="/" element={<RecipeList />} /> {/* Default route */}
+          <Route path="/" element={<ShoppingList />} /> {/* Default route */}
         </Routes>
       </div>
     </Router>

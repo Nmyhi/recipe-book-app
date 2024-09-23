@@ -4,7 +4,6 @@ import { db } from '../firebase'; // Adjust path as needed
 import EditRecipe from './EditRecipe'; // Import the EditRecipe component
 import '../RecipeList.css';
 
-
 function RecipeList() {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -50,30 +49,32 @@ function RecipeList() {
   };
 
   if (loading) {
-    return <p>Loading recipes...</p>;
+    return <p className="loading-message">Loading recipes...</p>;
   }
 
   if (error) {
-    return <p>Error loading recipes: {error.message}</p>;
+    return <p className="error-message">Error loading recipes: {error.message}</p>;
   }
 
   return (
-    <div className="recipe-list">
-      <h2>Recipe List</h2>
+    <div className="recipe-list-container">
+      <h2 className="recipe-list-title">Recipe List</h2>
       {recipes.length > 0 ? (
-        recipes.map((recipe) => (
-          <div key={recipe.id} className="recipe-item">
-            <h3>{recipe.name}</h3>
-            <p>{recipe.description}</p>
-            <p><strong>Category:</strong> {recipe.category}</p>
-            {/* Delete button for each recipe */}
-            <button onClick={() => handleDelete(recipe.id)}>Delete Recipe</button>
-            {/* Edit button for each recipe */}
-            <button onClick={() => handleEditClick(recipe)}>Edit Recipe</button>
-          </div>
-        ))
+        <div className="recipe-list">
+          {recipes.map((recipe) => (
+            <div key={recipe.id} className="recipe-card">
+              <h3 className="recipe-name">{recipe.name}</h3>
+              <p className="recipe-description">{recipe.description}</p>
+              <p className="recipe-category"><strong>Category:</strong> {recipe.category}</p>
+              {/* Delete button for each recipe */}
+              <button className="delete-button" onClick={() => handleDelete(recipe.id)}>Delete Recipe</button>
+              {/* Edit button for each recipe */}
+              <button className="edit-button" onClick={() => handleEditClick(recipe)}>Edit Recipe</button>
+            </div>
+          ))}
+        </div>
       ) : (
-        <p>No recipes found.</p>
+        <p className="no-recipes-message">No recipes found.</p>
       )}
 
       {/* Conditionally render EditRecipe component if a recipe is selected */}

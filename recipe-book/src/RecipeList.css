@@ -1,59 +1,68 @@
 /* RecipeList.css */
 
-.recipe-list {
-    max-width: 800px; /* Maximum width for the recipe list */
-    margin: 0 auto; /* Center the list horizontally */
-    padding: 20px;
-    background-color: #f9f9f9; /* Light background for contrast */
+.recipe-list-container {
+    max-width: 800px; /* Set max width for the container */
+    margin: 0 auto; /* Center the container */
+    padding: 20px; /* Add padding */
+    background-color: #fff; /* White background */
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   }
   
-  h2 {
-    text-align: center; /* Center the heading */
-    color: #333; /* Darker color for contrast */
+  .recipe-list-title {
+    text-align: center; /* Center the title */
+    color: #333; /* Dark color for contrast */
   }
   
-  .recipe-item {
-    background-color: #fff; /* White background for each recipe */
-    border: 1px solid #ddd; /* Light border around items */
-    border-radius: 8px; /* Rounded corners */
-    padding: 15px;
-    margin: 10px 0; /* Spacing between items */
-    transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
+  .loading-message,
+  .error-message,
+  .no-recipes-message {
+    text-align: center; /* Center align messages */
+    color: #888; /* Gray color for messages */
+    margin: 20px 0; /* Space around messages */
   }
   
-  .recipe-item:hover {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Darker shadow on hover */
+  .recipe-list {
+    display: flex; /* Flexbox layout for the recipe cards */
+    flex-direction: column; /* Stack recipe cards vertically */
   }
   
-  .recipe-buttons {
-    display: flex;
-    justify-content: space-between; /* Space between buttons */
-    margin-top: 10px; /* Space above buttons */
+  .recipe-card {
+    background-color: #f9f9f9; /* Light background for cards */
+    margin: 10px 0; /* Space between cards */
+    padding: 15px; /* Padding inside cards */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow for depth */
   }
   
-  button {
-    padding: 10px 15px; /* Padding inside buttons */
+  .recipe-name {
+    font-size: 1.5em; /* Larger font for the recipe name */
+    margin: 0 0 10px 0; /* Margin below the name */
+  }
+  
+  .recipe-description {
+    font-size: 1em; /* Normal font size for description */
+    margin: 0 0 10px 0; /* Margin below the description */
+  }
+  
+  .recipe-category {
+    font-size: 0.9em; /* Slightly smaller font for category */
+    margin: 0 0 15px 0; /* Margin below category */
+    color: #666; /* Lighter color for category */
+  }
+  
+  .delete-button,
+  .edit-button {
+    background-color: #007bff; /* Blue background for buttons */
+    color: white; /* White text */
     border: none; /* Remove default border */
-    border-radius: 5px; /* Rounded corners for buttons */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px; /* Padding inside buttons */
     cursor: pointer; /* Pointer cursor on hover */
-    font-size: 14px; /* Font size for buttons */
-    transition: background-color 0.3s ease; /* Smooth transition for hover */
+    transition: background-color 0.3s; /* Smooth transition for hover */
   }
   
-  button:hover {
-    background-color: #007bff; /* Blue background on hover */
-    color: white; /* White text on hover */
-  }
-  
-  @media (max-width: 600px) {
-    .recipe-item {
-      padding: 10px; /* Smaller padding on mobile */
-    }
-  
-    button {
-      width: 48%; /* Buttons take up half width on mobile */
-      font-size: 12px; /* Smaller font size on mobile */
-    }
+  .delete-button:hover,
+  .edit-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
   }

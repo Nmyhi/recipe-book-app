@@ -1,0 +1,81 @@
+/* ShoppingList.css */
+
+.shopping-list {
+    max-width: 800px; /* Maximum width for the shopping list */
+    margin: 0 auto; /* Center the list horizontally */
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background for contrast */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  h2 {
+    text-align: center; /* Center the heading */
+    color: #333; /* Darker color for contrast */
+  }
+  
+  .recipe-selection {
+    margin-bottom: 20px; /* Space below recipe selection section */
+  }
+  
+  .recipe-item {
+    display: flex; /* Use Flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    margin: 10px 0; /* Space between recipe items */
+    padding: 10px; /* Padding inside each recipe item */
+    background-color: #fff; /* White background for recipe item */
+    border: 1px solid #ddd; /* Light border around items */
+    border-radius: 8px; /* Rounded corners */
+    transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
+  }
+  
+  .recipe-item:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Darker shadow on hover */
+  }
+  
+  label {
+    margin-left: 10px; /* Space between checkbox and label */
+  }
+  
+  .generate-button {
+    width: 100%; /* Full-width button */
+    padding: 10px; /* Padding inside button */
+    background-color: #007bff; /* Primary button color */
+    color: white; /* White text */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners for button */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Font size for button */
+    transition: background-color 0.3s ease; /* Smooth transition for hover */
+  }
+  
+  .generate-button:disabled {
+    background-color: #ccc; /* Grey background for disabled button */
+    cursor: not-allowed; /* Not-allowed cursor */
+  }
+  
+  .generate-button:hover:not(:disabled) {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  .shopping-list-items {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+  }
+  
+  .shopping-list-items li {
+    padding: 10px; /* Padding inside each shopping list item */
+    border-bottom: 1px solid #ddd; /* Light border between items */
+    display: flex; /* Use Flexbox for alignment */
+    justify-content: space-between; /* Space between item text and checkbox */
+  }
+  
+  @media (max-width: 600px) {
+    .recipe-item {
+      padding: 8px; /* Smaller padding on mobile */
+    }
+  
+    .generate-button {
+      font-size: 14px; /* Smaller font size on mobile */
+    }
+  }

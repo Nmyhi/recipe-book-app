@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, onSnapshot, doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase'; // Adjust the path as needed
+import '../ShoppingLists.css'; // Import the CSS file for styling
 
 function ShoppingLists() {
   const [shoppingLists, setShoppingLists] = useState([]);
@@ -55,39 +56,40 @@ function ShoppingLists() {
   };
 
   if (loading) {
-    return <p>Loading shopping lists...</p>;
+    return <p className="loading-message">Loading shopping lists...</p>;
   }
 
   if (error) {
-    return <p>Error loading shopping lists: {error.message}</p>;
+    return <p className="error-message">Error loading shopping lists: {error.message}</p>;
   }
 
   return (
-    <div className="shopping-lists">
-      <h2>Shopping Lists</h2>
+    <div className="shopping-lists-container">
+      <h2 className="shopping-lists-title">Shopping Lists</h2>
       {shoppingLists.length > 0 ? (
         shoppingLists.map((list) => (
           <div key={list.id} className="shopping-lists-item">
-            <h3>{list.name}</h3> {/* Assuming each shopping list has a name */}
-            <h4>Ingredients:</h4>
-            <ul>
+            <h3 className="shopping-list-name">{list.name}</h3> {/* Assuming each shopping list has a name */}
+            <h4 className="ingredients-title">Ingredients:</h4>
+            <ul className="ingredients-list">
               {list.ingredients.map((ingredient, index) => (
-                <li key={index} style={{ textDecoration: checkedItems[list.id]?.[index] ? 'line-through' : 'none' }}>
+                <li key={index} className={`ingredient-item ${checkedItems[list.id]?.[index] ? 'checked' : ''}`}>
                   <input
                     type="checkbox"
                     checked={!!checkedItems[list.id]?.[index]}
                     onChange={() => handleCheckboxChange(list.id, index)}
+                    className="ingredient-checkbox"
                   />
-                  {ingredient.name} - {ingredient.quantity} {ingredient.unit}
+                  <span className="ingredient-text">{ingredient.name} - {ingredient.quantity} {ingredient.unit}</span>
                 </li>
               ))}
             </ul>
             {/* Button to delete shopping list */}
-            <button onClick={() => handleDelete(list.id)}>Delete List</button>
+            <button className="delete-button" onClick={() => handleDelete(list.id)}>Delete List</button>
           </div>
         ))
       ) : (
-        <p>No shopping lists found.</p>
+        <p className="no-lists-message">No shopping lists found.</p>
       )}
     </div>
   );
