@@ -22,7 +22,9 @@ function Navbar() {
     <nav className="navbar">
       <div className="navbar-container">
         <div className="navbar-logo">
-          <h1>Recipe App</h1>
+        <Link to="/" className="nav-links" onClick={closeMenu}>
+        Recipe App
+        </Link>
         </div>
         <div className="menu-icon" onClick={toggleMenu}>
           <FontAwesomeIcon icon={isOpen ? faTimes : faBars} />

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { collection, onSnapshot, doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase'; // Adjust path as needed
 import EditRecipe from './EditRecipe'; // Import the EditRecipe component
+import '../RecipeList.css';
+
 
 function RecipeList() {
   const [recipes, setRecipes] = useState([]);
