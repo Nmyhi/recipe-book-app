@@ -19,6 +19,7 @@ function App() {
           <Route path="/shopping-list" element={<ShoppingList />} />
           <Route path="/" element={<RecipeList />} /> {/* Default route */}
         </Routes>
+        <ShoppingList/>
       </div>
     </Router>
   );

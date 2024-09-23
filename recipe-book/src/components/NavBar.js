@@ -1,7 +1,11 @@
 // src/components/Navbar.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import '../Navbar.css';
+
+
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +21,8 @@ function Navbar() {
           <h1>Recipe App</h1>
         </div>
         <div className="menu-icon" onClick={toggleMenu}>
-          <i className={isOpen ? 'fas fa-times' : 'fas fa-bars'}></i>
+          {/* Use FontAwesomeIcon component instead of <i> tag */}
+          <FontAwesomeIcon icon={isOpen ? faTimes : faBars} />
         </div>
         <ul className={isOpen ? 'nav-menu active' : 'nav-menu'}>
           <li className="nav-item">
