@@ -43,21 +43,27 @@ function ShoppingList() {
 
   const handleGenerateList = async () => {
     const ingredientsMap = {};
-
+  
     for (const recipeId of selectedRecipes) {
       const recipeDoc = await getDoc(doc(db, 'recipes', recipeId));
       const recipe = recipeDoc.data();
+  
       recipe.ingredients.forEach((ingredient) => {
+        // Ensure quantity is treated as a number (float or integer)
+        const ingredientQuantity = parseFloat(ingredient.quantity); // Convert quantity to float
+  
         if (ingredientsMap[ingredient.name]) {
-          ingredientsMap[ingredient.name].quantity += ingredient.quantity;
+          // Sum up the quantities as numbers
+          ingredientsMap[ingredient.name].quantity += ingredientQuantity;
         } else {
-          ingredientsMap[ingredient.name] = { ...ingredient };
+          // Initialize the ingredient in the map with the correct quantity
+          ingredientsMap[ingredient.name] = { ...ingredient, quantity: ingredientQuantity };
         }
       });
     }
-
+  
     setShoppingList(Object.values(ingredientsMap));
-
+  
     await addDoc(collection(db, 'shoppingLists'), {
       recipeIds: selectedRecipes,
       ingredients: Object.values(ingredientsMap),
