@@ -1,76 +1,98 @@
 /* ShoppingLists.css */
 
 .shopping-lists-container {
-    max-width: 800px; /* Set max width for the container */
-    margin: 0 auto; /* Center the container */
-    padding: 20px; /* Add padding */
-    background-color: #fff; /* White background */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  }
-  
-  .shopping-lists-title {
-    text-align: center; /* Center the title */
-    color: #333; /* Dark color for contrast */
-  }
-  
-  .loading-message,
-  .error-message,
-  .no-lists-message {
-    text-align: center; /* Center align messages */
-    color: #888; /* Gray color for messages */
-    margin: 20px 0; /* Space around messages */
-  }
-  
-  .shopping-lists-item {
-    margin: 20px 0; /* Space between shopping lists */
-    padding: 15px; /* Padding inside each item */
-    border: 1px solid #eaeaea; /* Border for separation */
-    border-radius: 5px; /* Rounded corners for items */
-    background-color: #f9f9f9; /* Light background for items */
-  }
-  
-  .shopping-list-name {
-    font-size: 1.5em; /* Font size for list name */
-    color: #333; /* Dark color for visibility */
-  }
-  
-  .ingredients-title {
-    margin-top: 10px; /* Space above ingredients title */
-    color: #555; /* Slightly lighter color */
-  }
-  
-  .ingredients-list {
-    list-style-type: none; /* Remove bullet points */
-    padding: 0; /* Remove default padding */
-  }
-  
+  max-width: 800px; /* Set max width for the container */
+  margin: 0 auto; /* Center the container */
+  padding: 20px; /* Add padding */
+  background-color: #fff; /* White background */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.shopping-lists-title {
+  text-align: center; /* Center the title */
+  color: #333; /* Dark color for contrast */
+}
+
+.loading-message,
+.error-message,
+.no-lists-message {
+  text-align: center; /* Center align messages */
+  color: #888; /* Gray color for messages */
+  margin: 20px 0; /* Space around messages */
+}
+
+.shopping-lists-item {
+  margin: 20px 0; /* Space between shopping lists */
+  padding: 15px; /* Padding inside each item */
+  border: 1px solid #eaeaea; /* Border for separation */
+  border-radius: 5px; /* Rounded corners for items */
+  background-color: #f9f9f9; /* Light background for items */
+}
+
+.shopping-list-name {
+  font-size: 1.5em; /* Font size for list name */
+  color: #333; /* Dark color for visibility */
+}
+
+.ingredients-title {
+  margin-top: 10px; /* Space above ingredients title */
+  color: #555; /* Slightly lighter color */
+}
+
+.ingredients-list {
+  list-style-type: none; /* Remove bullet points */
+  padding: 0; /* Remove default padding */
+}
+
+.ingredient-item {
+  display: flex; /* Flexbox layout for ingredient items */
+  align-items: center; /* Center items vertically */
+  justify-content: flex-start; /* Ensure spacing between checkbox and text */
+  padding: 10px 0; /* Padding for ingredient items */
+  gap: 10px; /* Add space between checkbox and text */
+  flex-wrap: nowrap; /* Prevent items from wrapping *
+}
+
+.ingredient-checkbox {
+  margin-right: 10px; /* Space between checkbox and text */
+  flex-shrink: 0; /* Ensure checkbox doesn't shrink */
+}
+
+.checked {
+  text-decoration: line-through; /* Strikethrough for checked items */
+  color: #888; /* Light color for checked text */
+}
+
+.delete-button {
+  background-color: #e74c3c; /* Red background for delete button */
+  color: white; /* White text */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 15px; /* Padding inside button */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition for hover */
+  margin-top: 10px; /* Space above delete button */
+}
+
+.delete-button:hover {
+  background-color: #c0392b; /* Darker red on hover */
+}
+
+@media (max-width: 600px) {
   .ingredient-item {
-    display: flex; /* Flexbox layout for ingredient items */
-    align-items: center; /* Center items vertically */
-    padding: 10px 0; /* Padding for ingredient items */
+    flex-direction: row; /* Ensure checkbox and ingredient text remain side-by-side */
+    align-items: center; /* Align items in the center */
+    justify-content: flex-start; /* Left-align the items */
+    gap: 5px; /* Smaller gap between checkbox and text */
   }
-  
+
   .ingredient-checkbox {
-    margin-right: 10px; /* Space between checkbox and text */
+    margin-right: 5px; /* Reduce space on mobile */
+    flex-shrink: 0; /* Prevent checkbox from shrinking */
   }
-  
-  .checked {
-    text-decoration: line-through; /* Strikethrough for checked items */
-    color: #888; /* Light color for checked text */
+
+  .shopping-lists-container {
+    padding: 10px; /* Adjust padding for smaller screens */
   }
-  
-  .delete-button {
-    background-color: #e74c3c; /* Red background for delete button */
-    color: white; /* White text */
-    border: none; /* Remove default border */
-    border-radius: 5px; /* Rounded corners */
-    padding: 10px 15px; /* Padding inside button */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Smooth transition for hover */
-    margin-top: 10px; /* Space above delete button */
-  }
-  
-  .delete-button:hover {
-    background-color: #c0392b; /* Darker red on hover */
-  }
+}

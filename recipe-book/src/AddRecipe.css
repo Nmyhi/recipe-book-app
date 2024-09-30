@@ -1,77 +1,97 @@
 /* AddRecipe.css */
 
 .add-recipe-container {
-    max-width: 800px; /* Max width for the container */
-    margin: 0 auto; /* Center the container */
-    padding: 20px; /* Padding around the container */
-    background-color: #f9f9f9; /* Light background color */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  }
-  
-  h2 {
-    text-align: center; /* Center the heading */
-    color: #333; /* Darker color for contrast */
-  }
-  
-  .add-recipe-form {
-    display: flex; /* Flexbox layout for the form */
-    flex-direction: column; /* Stack elements vertically */
-  }
-  
+  max-width: 800px; /* Max width for the container */
+  margin: 0 auto; /* Center the container */
+  padding: 20px; /* Padding around the container */
+  background-color: #f9f9f9; /* Light background color */
+  border-radius: 8px; /* Rounded corners */
+  box-sizing: border-box; /* Ensure padding and border are included in width */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 100%; /* Make sure the container fits mobile screens */
+}
+
+h2 {
+  text-align: center; /* Center the heading */
+  color: #333; /* Darker color for contrast */
+}
+
+.add-recipe-form {
+  display: flex; /* Flexbox layout for the form */
+  flex-direction: column; /* Stack elements vertically */
+}
+
+.form-input, .form-textarea {
+  margin-bottom: 15px; /* Space between input fields */
+  padding: 10px; /* Padding inside input fields */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+  width: 100%; /* Ensure input fields are responsive */
+  box-sizing: border-box; /* Ensure padding/border don't overflow */
+}
+
+.form-textarea {
+  resize: vertical; /* Allow vertical resizing */
+  height: 100px; /* Default height */
+}
+
+.ingredient-item {
+  display: flex; /* Flexbox layout for ingredient items */
+  align-items: center; /* Center items vertically */
+  justify-content: space-between; /* Ensure even spacing */
+  gap: 10px; /* Space between child elements */
+  flex-wrap: wrap; /* Allow wrapping for mobile */
+  margin-bottom: 10px; /* Space between ingredients */
+  width: 100%; /* Ensure it takes full width */
+  box-sizing: border-box; /* Include padding/border in element width */
+}
+
+.quantity-input {
+  width: 80px; /* Fixed width for quantity input */
+  margin-left: 10px; /* Space between inputs */
+}
+
+.add-ingredient-button, .submit-button {
+  padding: 10px; /* Padding inside buttons */
+  background-color: #007bff; /* Primary button color */
+  color: white; /* White text */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Font size */
+  transition: background-color 0.3s ease; /* Smooth transition for hover */
+  width: 100%; /* Ensure buttons are responsive on mobile */
+  box-sizing: border-box; /* Ensure padding/border doesn't overflow */
+}
+
+.add-ingredient-button:hover, .submit-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.add-ingredient-button {
+  margin-top: 10px; /* Space above Add Ingredient button */
+}
+
+@media (max-width: 600px) {
   .form-input, .form-textarea {
-    margin-bottom: 15px; /* Space between input fields */
-    padding: 10px; /* Padding inside input fields */
-    border: 1px solid #ddd; /* Light border */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 16px; /* Font size */
+    font-size: 14px; /* Smaller font size on mobile */
+    width: 100%; /* Ensure input fields take full width */
   }
-  
-  .form-textarea {
-    resize: vertical; /* Allow vertical resizing */
-    height: 100px; /* Default height */
-  }
-  
+
   .ingredient-item {
-    display: flex; /* Flexbox layout for ingredient items */
-    align-items: center; /* Center items vertically */
-    margin-bottom: 10px; /* Space between ingredients */
+    flex-direction: column; /* Stack ingredients vertically on small screens */
+    align-items: flex-start; /* Align items to the start */
+    width: 100%; /* Full width for ingredients */
   }
-  
+
   .quantity-input {
-    width: 80px; /* Fixed width for quantity input */
-    margin-left: 10px; /* Space between inputs */
+    width: 100%; /* Full width for quantity input on mobile */
+    margin-left: 0; /* Remove left margin on mobile */
   }
-  
+
   .add-ingredient-button, .submit-button {
-    padding: 10px; /* Padding inside buttons */
-    background-color: #007bff; /* Primary button color */
-    color: white; /* White text */
-    border: none; /* Remove default border */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    font-size: 16px; /* Font size */
-    transition: background-color 0.3s ease; /* Smooth transition for hover */
+    font-size: 14px; /* Smaller font size for buttons */
+    width: 100%; /* Full width for buttons on mobile */
   }
-  
-  .add-ingredient-button:hover, .submit-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-  }
-  
-  .add-ingredient-button {
-    margin-top: 10px; /* Space above Add Ingredient button */
-  }
-  
-  @media (max-width: 600px) {
-    .form-input, .form-textarea {
-      font-size: 14px; /* Smaller font size on mobile */
-    }
-  
-    .quantity-input {
-      width: 60px; /* Adjust width for mobile */
-    }
-  
-    .add-ingredient-button, .submit-button {
-      font-size: 14px; /* Smaller font size for buttons */
-    }
-  }
+}
