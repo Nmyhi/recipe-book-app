@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase'; // Adjust path as needed
+import '../EditRecipe.css';
 
 function EditRecipe({ recipe, onClose }) {
   const [name, setName] = useState(recipe.name);
