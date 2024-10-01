@@ -1,4 +1,7 @@
 /* ShoppingList.css */
+body {
+  background-color: #333;
+}
 
 .shopping-list {
     max-width: 800px; /* Maximum width for the shopping list */

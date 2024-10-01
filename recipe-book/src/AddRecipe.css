@@ -1,4 +1,7 @@
 /* AddRecipe.css */
+body {
+  background-color: #333;
+}
 
 .add-recipe-container {
   max-width: 800px; /* Max width for the container */

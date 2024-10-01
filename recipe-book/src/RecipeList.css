@@ -1,5 +1,7 @@
 /* RecipeList.css */
-
+body {
+  background-color: #333;
+}
 .recipe-list-container {
     max-width: 800px; /* Set max width for the container */
     margin: 0 auto; /* Center the container */

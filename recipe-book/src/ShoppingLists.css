@@ -1,4 +1,7 @@
 /* ShoppingLists.css */
+body {
+  background-color: #333;
+}
 
 .shopping-lists-container {
   max-width: 800px; /* Set max width for the container */
