@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, onSnapshot, doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase'; // Adjust the path as needed
-import '../ShoppingLists.css'; // Import the CSS file for styling
+import '../ShoppingLists.css';
 
 function ShoppingLists() {
   const [shoppingLists, setShoppingLists] = useState([]);
@@ -13,7 +13,6 @@ function ShoppingLists() {
   useEffect(() => {
     const shoppingListsCollectionRef = collection(db, 'shoppingLists');
 
-    // Using onSnapshot to get real-time updates
     const unsubscribe = onSnapshot(
       shoppingListsCollectionRef,
       (snapshot) => {
@@ -30,9 +29,21 @@ function ShoppingLists() {
       }
     );
 
-    // Cleanup listener on unmount
     return () => unsubscribe();
   }, []);
+
+  // Retrieve checkedItems from localStorage on initial load
+  useEffect(() => {
+    const savedCheckedItems = JSON.parse(localStorage.getItem('checkedItems'));
+    if (savedCheckedItems) {
+      setCheckedItems(savedCheckedItems);
+    }
+  }, []);
+
+  // Save checkedItems to localStorage whenever it updates
+  useEffect(() => {
+    localStorage.setItem('checkedItems', JSON.stringify(checkedItems));
+  }, [checkedItems]);
 
   // Handle checkbox change for ticking/unticking an ingredient
   const handleCheckboxChange = (listId, ingredientIndex) => {
@@ -69,7 +80,7 @@ function ShoppingLists() {
       {shoppingLists.length > 0 ? (
         shoppingLists.map((list) => (
           <div key={list.id} className="shopping-lists-item">
-            <h3 className="shopping-list-name">{list.name}</h3> {/* Assuming each shopping list has a name */}
+            <h3 className="shopping-list-name">{list.name}</h3>
             <h4 className="ingredients-title">Ingredients:</h4>
             <ul className="ingredients-list">
               {list.ingredients.map((ingredient, index) => (
@@ -84,7 +95,6 @@ function ShoppingLists() {
                 </li>
               ))}
             </ul>
-            {/* Button to delete shopping list */}
             <button className="delete-button" onClick={() => handleDelete(list.id)}>Delete List</button>
           </div>
         ))

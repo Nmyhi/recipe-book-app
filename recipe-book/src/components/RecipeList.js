@@ -9,11 +9,12 @@ function RecipeList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedRecipe, setSelectedRecipe] = useState(null); // To store the recipe selected for editing
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false); // Show/Hide delete confirmation modal
+  const [recipeToDelete, setRecipeToDelete] = useState(null); // Store the recipe ID to delete
 
   useEffect(() => {
     const recipesCollectionRef = collection(db, 'recipes');
 
-    // Using onSnapshot to fetch real-time data
     const unsubscribe = onSnapshot(
       recipesCollectionRef,
       (snapshot) => {
@@ -30,17 +31,27 @@ function RecipeList() {
       }
     );
 
-    // Cleanup listener on unmount
     return () => unsubscribe();
   }, []);
 
-  const handleDelete = async (recipeId) => {
+  // Function to confirm deletion with popup
+  const confirmDelete = (recipeId) => {
+    setRecipeToDelete(recipeId); // Store the ID of the recipe to delete
+    setShowDeleteConfirm(true); // Show confirmation modal
+  };
+
+  // Function to handle deletion of recipe
+  const handleDelete = async () => {
+    if (!recipeToDelete) return; // Prevent deletion if no recipe ID is stored
+
     try {
-      // Delete the recipe document by its ID
-      await deleteDoc(doc(db, 'recipes', recipeId));
+      await deleteDoc(doc(db, 'recipes', recipeToDelete));
       console.log('Recipe deleted successfully');
     } catch (error) {
       console.error('Error deleting recipe:', error);
+    } finally {
+      setShowDeleteConfirm(false); // Hide confirmation modal
+      setRecipeToDelete(null); // Clear the ID
     }
   };
 
@@ -66,9 +77,9 @@ function RecipeList() {
               <h3 className="recipe-name">{recipe.name}</h3>
               <p className="recipe-description">{recipe.description}</p>
               <p className="recipe-category"><strong>Category:</strong> {recipe.category}</p>
-              {/* Delete button for each recipe */}
-              <button className="delete-button" onClick={() => handleDelete(recipe.id)}>Delete Recipe</button>
-              {/* Edit button for each recipe */}
+              {/* Delete button with confirmation */}
+              <button className="delete-button" onClick={() => confirmDelete(recipe.id)}>Delete Recipe</button>
+              {/* Edit button */}
               <button className="edit-button" onClick={() => handleEditClick(recipe)}>Edit Recipe</button>
             </div>
           ))}
@@ -81,8 +92,19 @@ function RecipeList() {
       {selectedRecipe && (
         <EditRecipe
           recipe={selectedRecipe}
-          onClose={() => setSelectedRecipe(null)} // Close the editor after saving
+          onClose={() => setSelectedRecipe(null)}
         />
+      )}
+
+      {/* Delete confirmation modal */}
+      {showDeleteConfirm && (
+        <div className="delete-confirm-modal">
+          <div className="modal-content">
+            <p>Are you sure you want to delete this recipe?</p>
+            <button className="confirm-button" onClick={handleDelete}>Yes, delete</button>
+            <button className="cancel-button" onClick={() => setShowDeleteConfirm(false)}>Cancel</button>
+          </div>
+        </div>
       )}
     </div>
   );
