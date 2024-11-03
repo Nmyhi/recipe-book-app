@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import { collection, getDocs, doc, getDoc, addDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
-import '../ShoppingList.css'; // Import the CSS file for styling
+import '../ShoppingList.css';
 
 function ShoppingList() {
   const [recipes, setRecipes] = useState([]);
   const [selectedRecipes, setSelectedRecipes] = useState([]);
-  const [shoppingList, setShoppingList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [shoppingListName, setShoppingListName] = useState('');
+  const [listGenerated, setListGenerated] = useState(false);
 
-  // Fetch recipes from Firestore
   useEffect(() => {
     const recipesCollectionRef = collection(db, 'recipes');
     const unsubscribe = onSnapshot(
@@ -29,46 +29,44 @@ function ShoppingList() {
       }
     );
 
-    // Cleanup listener on unmount
     return () => unsubscribe();
   }, []);
 
   const handleRecipeSelect = (recipeId) => {
     setSelectedRecipes((prevSelected) =>
       prevSelected.includes(recipeId)
-        ? prevSelected.filter((id) => id !== recipeId) // Unselect recipe if already selected
-        : [...prevSelected, recipeId] // Select recipe
+        ? prevSelected.filter((id) => id !== recipeId)
+        : [...prevSelected, recipeId]
     );
   };
 
   const handleGenerateList = async () => {
     const ingredientsMap = {};
-  
+
     for (const recipeId of selectedRecipes) {
       const recipeDoc = await getDoc(doc(db, 'recipes', recipeId));
       const recipe = recipeDoc.data();
-  
+
       recipe.ingredients.forEach((ingredient) => {
-        // Ensure quantity is treated as a number (float or integer)
-        const ingredientQuantity = parseFloat(ingredient.quantity); // Convert quantity to float
-  
+        const ingredientQuantity = parseFloat(ingredient.quantity);
         if (ingredientsMap[ingredient.name]) {
-          // Sum up the quantities as numbers
           ingredientsMap[ingredient.name].quantity += ingredientQuantity;
         } else {
-          // Initialize the ingredient in the map with the correct quantity
           ingredientsMap[ingredient.name] = { ...ingredient, quantity: ingredientQuantity };
         }
       });
     }
-  
-    setShoppingList(Object.values(ingredientsMap));
-  
+
     await addDoc(collection(db, 'shoppingLists'), {
+      name: shoppingListName,
       recipeIds: selectedRecipes,
       ingredients: Object.values(ingredientsMap),
       createdAt: new Date(),
     });
+
+    setShoppingListName(''); // Clear the list name input
+    setSelectedRecipes([]);  // Clear selected recipes
+    setListGenerated(true);  // Set list generated state to true
   };
 
   if (loading) {
@@ -81,9 +79,17 @@ function ShoppingList() {
 
   return (
     <div className="shopping-list">
-      <h2>Shopping List</h2>
-      
-      {/* Recipe selection */}
+      <h2 className="shopping-list-title">Shopping List</h2>
+
+      <input
+        type="text"
+        placeholder="Enter Shopping List Name"
+        value={shoppingListName}
+        onChange={(e) => setShoppingListName(e.target.value)}
+        required
+        className="shopping-list-input"
+      />
+
       <div className="recipe-selection">
         <h4>Select Recipes:</h4>
         {recipes.length > 0 ? (
@@ -104,19 +110,15 @@ function ShoppingList() {
         )}
       </div>
 
-      <button className="generate-button" onClick={handleGenerateList} disabled={selectedRecipes.length === 0}>
+      <button
+        className="generate-button"
+        onClick={handleGenerateList}
+        disabled={selectedRecipes.length === 0 || !shoppingListName}
+      >
         Generate Shopping List
       </button>
 
-      <h4>Shopping List</h4>
-      <ul className="shopping-list-items">
-        {shoppingList.map((item, index) => (
-          <li key={index}>
-            {item.name} - {item.quantity} {item.unit}
-            <input type="checkbox" />
-          </li>
-        ))}
-      </ul>
+      {listGenerated && <p className="confirmation-message">Shopping list has been generated.</p>}
     </div>
   );
 }

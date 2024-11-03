@@ -1,101 +1,95 @@
-/* ShoppingLists.css */
-body {
-  background-color: #333;
-}
-
 .shopping-lists-container {
-  max-width: 800px; /* Set max width for the container */
-  margin: 0 auto; /* Center the container */
-  padding: 20px; /* Add padding */
-  background-color: #fff; /* White background */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .shopping-lists-title {
-  text-align: center; /* Center the title */
-  color: #333; /* Dark color for contrast */
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
 }
 
-.loading-message,
-.error-message,
-.no-lists-message {
-  text-align: center; /* Center align messages */
-  color: #888; /* Gray color for messages */
-  margin: 20px 0; /* Space around messages */
+.shopping-list-card {
+  margin: 15px 0;
+  padding: 15px;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s ease;
 }
 
-.shopping-lists-item {
-  margin: 20px 0; /* Space between shopping lists */
-  padding: 15px; /* Padding inside each item */
-  border: 1px solid #eaeaea; /* Border for separation */
-  border-radius: 5px; /* Rounded corners for items */
-  background-color: #f9f9f9; /* Light background for items */
+.shopping-list-card:hover {
+  background-color: #f1f1f1;
 }
 
 .shopping-list-name {
-  font-size: 1.5em; /* Font size for list name */
-  color: #333; /* Dark color for visibility */
+  font-size: 1.2em;
+  color: #333;
+  margin: 0;
+}
+
+.ingredients-container {
+  margin-top: 10px;
 }
 
 .ingredients-title {
-  margin-top: 10px; /* Space above ingredients title */
-  color: #555; /* Slightly lighter color */
+  margin-top: 10px;
+  color: #555;
 }
 
 .ingredients-list {
-  list-style-type: none; /* Remove bullet points */
-  padding: 0; /* Remove default padding */
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
 }
 
 .ingredient-item {
-  display: flex; /* Flexbox layout for ingredient items */
-  align-items: center; /* Center items vertically */
-  justify-content: flex-start; /* Ensure spacing between checkbox and text */
-  padding: 10px 0; /* Padding for ingredient items */
-  gap: 10px; /* Add space between checkbox and text */
-  flex-wrap: nowrap; /* Prevent items from wrapping *
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+  color: #333;
+  justify-content: space-between; /* Ensure space between ingredient text and checkbox */
+}
+
+.ingredient-text {
+  flex-grow: 1; /* Allow ingredient text to expand */
 }
 
 .ingredient-checkbox {
-  margin-right: 10px; /* Space between checkbox and text */
-  flex-shrink: 0; /* Ensure checkbox doesn't shrink */
+  cursor: pointer; /* Pointer cursor for checkbox */
 }
 
-.checked {
+.checked .ingredient-text {
   text-decoration: line-through; /* Strikethrough for checked items */
-  color: #888; /* Light color for checked text */
+  color: #888; /* Gray color for checked text */
 }
 
 .delete-button {
-  background-color: #e74c3c; /* Red background for delete button */
-  color: white; /* White text */
-  border: none; /* Remove default border */
-  border-radius: 5px; /* Rounded corners */
-  padding: 10px 15px; /* Padding inside button */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s; /* Smooth transition for hover */
-  margin-top: 10px; /* Space above delete button */
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
 }
 
 .delete-button:hover {
   background-color: #c0392b; /* Darker red on hover */
 }
 
+/* Responsive styling for smaller screens */
 @media (max-width: 600px) {
-  .ingredient-item {
-    flex-direction: row; /* Ensure checkbox and ingredient text remain side-by-side */
-    align-items: center; /* Align items in the center */
-    justify-content: flex-start; /* Left-align the items */
-    gap: 5px; /* Smaller gap between checkbox and text */
-  }
-
-  .ingredient-checkbox {
-    margin-right: 5px; /* Reduce space on mobile */
-    flex-shrink: 0; /* Prevent checkbox from shrinking */
-  }
-
   .shopping-lists-container {
-    padding: 10px; /* Adjust padding for smaller screens */
+    padding: 10px;
+  }
+
+  .ingredient-item {
+    flex-direction: row; /* Ensure text and checkbox stay in one row */
   }
 }
