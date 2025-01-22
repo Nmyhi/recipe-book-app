@@ -1,76 +1,87 @@
 /* RecipeList.css */
 body {
   background-color: #333;
+  margin: 0; /* Ensure no margin to make full use of the screen */
+  padding: 0;
 }
+
+/* Recipe List Container */
 .recipe-list-container {
-    max-width: 800px; /* Set max width for the container */
-    margin: 0 auto; /* Center the container */
-    padding: 20px; /* Add padding */
-    background-color: #fff; /* White background */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  }
-  
-  .recipe-list-title {
-    text-align: center; /* Center the title */
-    color: #333; /* Dark color for contrast */
-  }
-  
-  .loading-message,
-  .error-message,
-  .no-recipes-message {
-    text-align: center; /* Center align messages */
-    color: #888; /* Gray color for messages */
-    margin: 20px 0; /* Space around messages */
-  }
-  
-  .recipe-list {
-    display: flex; /* Flexbox layout for the recipe cards */
-    flex-direction: column; /* Stack recipe cards vertically */
-  }
-  
-  .recipe-card {
-    background-color: #f9f9f9; /* Light background for cards */
-    margin: 10px 0; /* Space between cards */
-    padding: 15px; /* Padding inside cards */
-    border-radius: 5px; /* Rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-  }
-  
-  .recipe-name {
-    font-size: 1.5em; /* Larger font for the recipe name */
-    margin: 0 0 10px 0; /* Margin below the name */
-  }
-  
-  .recipe-description {
-    font-size: 1em; /* Normal font size for description */
-    margin: 0 0 10px 0; /* Margin below the description */
-  }
-  
-  .recipe-category {
-    font-size: 0.9em; /* Slightly smaller font for category */
-    margin: 0 0 15px 0; /* Margin below category */
-    color: #666; /* Lighter color for category */
-  }
-  
-  .delete-button,
-  .edit-button {
-    background-color: #007bff; /* Blue background for buttons */
-    color: white; /* White text */
-    border: none; /* Remove default border */
-    border-radius: 5px; /* Rounded corners */
-    padding: 10px; /* Padding inside buttons */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Smooth transition for hover */
-  }
-  
-  .delete-button:hover,
-  .edit-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-  }
+  max-width: 800px; /* Set max width for the container */
+  margin: 0 auto; /* Center the container */
+  padding: 20px; /* Add padding */
+  background-color: #fff; /* White background */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
 
-/* delete modal */
+/* Recipe List Title */
+.recipe-list-title {
+  text-align: center; /* Center the title */
+  color: #333; /* Dark color for contrast */
+}
 
+/* Message Styling */
+.loading-message,
+.error-message,
+.no-recipes-message {
+  text-align: center; /* Center align messages */
+  color: #888; /* Gray color for messages */
+  margin: 20px 0; /* Space around messages */
+}
+
+/* Recipe List Layout */
+.recipe-list {
+  display: flex; /* Flexbox layout for the recipe cards */
+  flex-direction: column; /* Stack recipe cards vertically */
+}
+
+/* Recipe Card Styling */
+.recipe-card {
+  background-color: #f9f9f9; /* Light background for cards */
+  margin: 10px 0; /* Space between cards */
+  padding: 15px; /* Padding inside cards */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+}
+
+/* Recipe Name Styling */
+.recipe-name {
+  font-size: 1.5em; /* Larger font for the recipe name */
+  margin: 0 0 10px 0; /* Margin below the name */
+}
+
+/* Recipe Description Styling */
+.recipe-description {
+  font-size: 1em; /* Normal font size for description */
+  margin: 0 0 10px 0; /* Margin below the description */
+}
+
+/* Recipe Category Styling */
+.recipe-category {
+  font-size: 0.9em; /* Slightly smaller font for category */
+  margin: 0 0 15px 0; /* Margin below category */
+  color: #666; /* Lighter color for category */
+}
+
+/* Buttons Styling */
+.delete-button,
+.edit-button {
+  background-color: #007bff; /* Blue background for buttons */
+  color: white; /* White text */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px; /* Padding inside buttons */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+.delete-button:hover,
+.edit-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Delete Modal */
 .delete-confirm-modal {
   position: fixed;
   top: 0;
@@ -92,6 +103,7 @@ body {
   max-width: 300px;
 }
 
+/* Confirm and Cancel Buttons in Modal */
 .confirm-button {
   background-color: #ff4d4f;
   color: white;
@@ -108,4 +120,140 @@ body {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+/* Edit Modal */
+.edit-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.edit-modal .modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+  text-align: left;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  overflow-y: auto; /* Make content scrollable inside the modal */
+  max-height: 90vh; /* Ensure modal doesn't overflow on small screens */
+}
+
+/* Input and Textarea inside Edit Modal */
+.edit-modal .modal-content input,
+.edit-modal .modal-content textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Buttons inside Edit Modal */
+.edit-modal .modal-content button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-modal .modal-content button:hover {
+  background-color: #0056b3;
+}
+
+/* Body Locking when Modal is Open */
+body.modal-open {
+  overflow: hidden; /* Disable scrolling on body */
+}
+
+/* Responsive Styles for Mobile Devices */
+@media (max-width: 768px) {
+  .recipe-list-container {
+    padding: 15px; /* Reduce padding on mobile */
+    max-width: 100%; /* Allow container to take full width */
+  }
+
+  .recipe-card {
+    padding: 10px; /* Less padding on recipe card */
+    margin: 5px 0; /* Less margin between cards */
+  }
+
+  .recipe-name {
+    font-size: 1.3em; /* Slightly smaller font size for mobile */
+  }
+
+  .recipe-description {
+    font-size: 0.9em; /* Slightly smaller description */
+  }
+
+  .recipe-category {
+    font-size: 0.8em; /* Slightly smaller category font */
+  }
+
+  .delete-button,
+  .edit-button {
+    padding: 8px; /* Smaller padding for buttons */
+    font-size: 0.9em; /* Slightly smaller font for buttons */
+  }
+
+  /* Edit Modal for Mobile */
+  .edit-modal .modal-content {
+    max-width: 90%; /* Use 90% width on mobile */
+    padding: 15px; /* Reduced padding for mobile */
+  }
+
+  .edit-modal .modal-content input,
+  .edit-modal .modal-content textarea {
+    padding: 8px; /* Smaller input padding */
+  }
+
+  .edit-modal .modal-content button {
+    padding: 8px 15px; /* Adjust button padding */
+  }
+}
+
+/* For smaller screens (mobile) */
+@media (max-width: 480px) {
+  .recipe-name {
+    font-size: 1.2em; /* Even smaller font size for very small screens */
+  }
+
+  .recipe-description {
+    font-size: 0.8em; /* Smaller font for description */
+  }
+
+  .recipe-category {
+    font-size: 0.7em; /* Smaller font for category */
+  }
+
+  .delete-button,
+  .edit-button {
+    font-size: 0.8em; /* Smaller font for buttons */
+  }
+
+  .edit-modal .modal-content {
+    max-width: 95%; /* Use more width on small screens */
+    padding: 10px; /* Less padding for very small screens */
+  }
+
+  .edit-modal .modal-content input,
+  .edit-modal .modal-content textarea {
+    padding: 7px; /* Smaller padding for inputs */
+  }
+
+  .edit-modal .modal-content button {
+    padding: 7px 12px; /* Adjust button size */
+  }
 }

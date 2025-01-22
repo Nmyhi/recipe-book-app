@@ -57,6 +57,12 @@ function RecipeList() {
 
   const handleEditClick = (recipe) => {
     setSelectedRecipe(recipe); // Set the selected recipe for editing
+    document.body.style.overflow = 'hidden'; // Disable background scrolling when modal is open
+  };
+
+  const handleCloseEdit = () => {
+    setSelectedRecipe(null); // Close the EditRecipe modal
+    document.body.style.overflow = 'auto'; // Re-enable background scrolling when modal is closed
   };
 
   if (loading) {
@@ -90,10 +96,14 @@ function RecipeList() {
 
       {/* Conditionally render EditRecipe component if a recipe is selected */}
       {selectedRecipe && (
-        <EditRecipe
-          recipe={selectedRecipe}
-          onClose={() => setSelectedRecipe(null)}
-        />
+        <div className="edit-modal">
+          <div className="modal-content">
+            <EditRecipe
+              recipe={selectedRecipe}
+              onClose={handleCloseEdit}
+            />
+          </div>
+        </div>
       )}
 
       {/* Delete confirmation modal */}
