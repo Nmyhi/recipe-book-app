@@ -5,8 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import '../Navbar.css';
 
-
-
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -22,9 +20,9 @@ function Navbar() {
     <nav className="navbar">
       <div className="navbar-container">
         <div className="navbar-logo">
-        <Link to="/" className="nav-links" onClick={closeMenu}>
-        Recipe App
-        </Link>
+          <Link to="/" className="nav-links" onClick={closeMenu}>
+            Recipe App
+          </Link>
         </div>
         <div className="menu-icon" onClick={toggleMenu}>
           <FontAwesomeIcon icon={isOpen ? faTimes : faBars} />
@@ -43,6 +41,11 @@ function Navbar() {
           <li className="nav-item">
             <Link to="/add-recipe" className="nav-links" onClick={closeMenu}>
               Add Recipe
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/add-ingredient" className="nav-links" onClick={closeMenu}>
+              Add Ingredient
             </Link>
           </li>
         </ul>

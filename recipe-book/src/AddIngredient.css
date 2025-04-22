@@ -1,0 +1,19 @@
+/* AddIngredient.css */
+.add-ingredient-container {
+    padding: 20px;
+    max-width: 500px;
+    margin: auto;
+  }
+  
+  .add-ingredient-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .add-ingredient-form input,
+  .add-ingredient-form button {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
