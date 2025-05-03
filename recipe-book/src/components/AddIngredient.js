@@ -3,6 +3,7 @@ import { addDoc, collection, getDocs, deleteDoc, updateDoc, doc } from 'firebase
 import { db } from '../firebase';
 import '../AddIngredient.css'; // Optional for styling
 
+
 function AddIngredient() {
   const [name, setName] = useState('');
   const [unit, setUnit] = useState('');
