@@ -43,16 +43,30 @@ function ShoppingList() {
   const handleGenerateList = async () => {
     const ingredientsMap = {};
 
+    // 🔍 Fetch all ingredients from the main ingredients collection
+    const allIngredientsSnapshot = await getDocs(collection(db, 'ingredients'));
+    const ingredientsData = {};
+    allIngredientsSnapshot.forEach((doc) => {
+      const data = doc.data();
+      ingredientsData[data.name] = data; // Lookup by ingredient name
+    });
+
     for (const recipeId of selectedRecipes) {
       const recipeDoc = await getDoc(doc(db, 'recipes', recipeId));
       const recipe = recipeDoc.data();
 
       recipe.ingredients.forEach((ingredient) => {
         const ingredientQuantity = parseFloat(ingredient.quantity);
+        const category = ingredientsData[ingredient.name]?.category || 'Uncategorized';
+
         if (ingredientsMap[ingredient.name]) {
           ingredientsMap[ingredient.name].quantity += ingredientQuantity;
         } else {
-          ingredientsMap[ingredient.name] = { ...ingredient, quantity: ingredientQuantity };
+          ingredientsMap[ingredient.name] = {
+            ...ingredient,
+            quantity: ingredientQuantity,
+            category: category,
+          };
         }
       });
     }
@@ -64,9 +78,9 @@ function ShoppingList() {
       createdAt: new Date(),
     });
 
-    setShoppingListName(''); // Clear the list name input
-    setSelectedRecipes([]);  // Clear selected recipes
-    setListGenerated(true);  // Set list generated state to true
+    setShoppingListName('');
+    setSelectedRecipes([]);
+    setListGenerated(true);
   };
 
   if (loading) {

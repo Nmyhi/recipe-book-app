@@ -5,8 +5,8 @@ import '../ShoppingLists.css';
 
 function ShoppingLists() {
   const [shoppingLists, setShoppingLists] = useState([]);
-  const [expandedList, setExpandedList] = useState(null); // Track expanded list
-  const [checkedItems, setCheckedItems] = useState({}); // Track checked items
+  const [expandedList, setExpandedList] = useState(null);
+  const [checkedItems, setCheckedItems] = useState({});
 
   useEffect(() => {
     const shoppingListsCollectionRef = collection(db, 'shoppingLists');
@@ -21,20 +21,17 @@ function ShoppingLists() {
     return () => unsubscribe();
   }, []);
 
-  // Load checked items from localStorage
   useEffect(() => {
     const savedCheckedItems = JSON.parse(localStorage.getItem('checkedItems')) || {};
     setCheckedItems(savedCheckedItems);
   }, []);
 
-  // Save checked items to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem('checkedItems', JSON.stringify(checkedItems));
   }, [checkedItems]);
 
   const toggleList = (listId) => {
-    // If the clicked list is already expanded, do not change its state
-    setExpandedList((prev) => (prev === listId ? prev : listId));
+    setExpandedList((prev) => (prev === listId ? null : listId));
   };
 
   const handleCheckboxChange = (listId, ingredientIndex) => {
@@ -70,21 +67,38 @@ function ShoppingLists() {
             {expandedList === list.id && (
               <div className="ingredients-container">
                 <h4 className="ingredients-title">Ingredients:</h4>
-                <ul className="ingredients-list">
-                  {list.ingredients.map((ingredient, index) => (
-                    <li key={index} className="ingredient-item">
-                      <span className={`ingredient-text ${checkedItems[list.id]?.[index] ? 'checked' : ''}`}>
-                        {ingredient.name} - {ingredient.quantity} {ingredient.unit}
-                      </span>
-                      <input
-                        type="checkbox"
-                        checked={!!checkedItems[list.id]?.[index]}
-                        onChange={() => handleCheckboxChange(list.id, index)}
-                        className="ingredient-checkbox"
-                      />
-                    </li>
-                  ))}
-                </ul>
+
+                {/** Group by category */}
+                {Object.entries(
+                  list.ingredients.reduce((groups, ingredient, index) => {
+                    const category = ingredient.category || 'Uncategorized';
+                    if (!groups[category]) {
+                      groups[category] = [];
+                    }
+                    groups[category].push({ ...ingredient, index });
+                    return groups;
+                  }, {})
+                ).map(([category, items]) => (
+                  <div key={category} className="ingredient-category-group">
+                    <h5 className="ingredient-category-title">{category}</h5>
+                    <ul className="ingredients-list">
+                      {items.map(({ name, quantity, unit, index }) => (
+                        <li key={index} className="ingredient-item">
+                          <span className={`ingredient-text ${checkedItems[list.id]?.[index] ? 'checked' : ''}`}>
+                            {name} - {quantity} {unit}
+                          </span>
+                          <input
+                            type="checkbox"
+                            checked={!!checkedItems[list.id]?.[index]}
+                            onChange={() => handleCheckboxChange(list.id, index)}
+                            className="ingredient-checkbox"
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+
                 <button
                   className="delete-button"
                   onClick={(e) => {
