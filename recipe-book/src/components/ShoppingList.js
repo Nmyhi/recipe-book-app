@@ -48,7 +48,7 @@ function ShoppingList() {
     const ingredientsData = {};
     allIngredientsSnapshot.forEach((doc) => {
       const data = doc.data();
-      ingredientsData[data.name] = data; // Lookup by ingredient name
+      ingredientsData[data.name.toLowerCase()] = data; // Lookup by ingredient name
     });
 
     for (const recipeId of selectedRecipes) {
@@ -57,7 +57,8 @@ function ShoppingList() {
 
       recipe.ingredients.forEach((ingredient) => {
         const ingredientQuantity = parseFloat(ingredient.quantity);
-        const category = ingredientsData[ingredient.name]?.category || 'Uncategorized';
+        const category = ingredientsData[ingredient.name.toLowerCase()]?.category || 'Uncategorized';
+
 
         if (ingredientsMap[ingredient.name]) {
           ingredientsMap[ingredient.name].quantity += ingredientQuantity;
