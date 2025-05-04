@@ -88,11 +88,12 @@ function ShoppingLists() {
                             {name} - {quantity} {unit}
                           </span>
                           <input
-                            type="checkbox"
-                            checked={!!checkedItems[list.id]?.[index]}
-                            onChange={() => handleCheckboxChange(list.id, index)}
-                            className="ingredient-checkbox"
-                          />
+                          type="checkbox"
+                          checked={!!checkedItems[list.id]?.[index]}
+                          onClick={(e) => e.stopPropagation()} // <-- THIS is the key fix
+                          onChange={() => handleCheckboxChange(list.id, index)}
+                          className="ingredient-checkbox"
+                        />
                         </li>
                       ))}
                     </ul>

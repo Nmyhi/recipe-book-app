@@ -3,7 +3,6 @@ import { addDoc, collection, getDocs, deleteDoc, updateDoc, doc } from 'firebase
 import { db } from '../firebase';
 import '../AddIngredient.css'; // Optional for styling
 
-
 function AddIngredient() {
   const [name, setName] = useState('');
   const [unit, setUnit] = useState('');
@@ -20,7 +19,8 @@ function AddIngredient() {
   const [editingCategoryId, setEditingCategoryId] = useState(null);
   const [editingCategoryName, setEditingCategoryName] = useState('');
 
-  // Fetch ingredients
+  const [searchTerm, setSearchTerm] = useState('');
+
   const fetchIngredients = async () => {
     try {
       const snapshot = await getDocs(collection(db, 'ingredients'));
@@ -34,7 +34,6 @@ function AddIngredient() {
     }
   };
 
-  // Fetch categories
   const fetchCategories = async () => {
     try {
       const snapshot = await getDocs(collection(db, 'categories'));
@@ -151,6 +150,10 @@ function AddIngredient() {
     }
   };
 
+  const filteredIngredients = ingredients.filter((ingredient) =>
+    ingredient.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="add-ingredient-container">
       <h2>Add Ingredient</h2>
@@ -185,8 +188,17 @@ function AddIngredient() {
       </form>
 
       <h3>Current Ingredients</h3>
+
+      <input
+        type="text"
+        placeholder="Search ingredients..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="search-bar"
+      />
+
       <ul className="ingredient-list">
-        {ingredients.map((ingredient) => (
+        {filteredIngredients.map((ingredient) => (
           <li key={ingredient.id} className="ingredient-item">
             {editingId === ingredient.id ? (
               <>
