@@ -32,6 +32,7 @@
   .menu-icon {
     display: none;
     cursor: pointer;
+    font-size: 2rem;
   }
   
   .menu-icon i {
