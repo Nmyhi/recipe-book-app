@@ -93,3 +93,14 @@
     flex-direction: row; /* Ensure text and checkbox stay in one row */
   }
 }
+
+@media (max-width: 600px) {
+  .ingredient-checkbox {
+    transform: scale(1.8);
+    margin-right: 10px;
+  }
+
+  .ingredient-item {
+    align-items: center;
+  }
+}
