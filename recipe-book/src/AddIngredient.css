@@ -17,3 +17,39 @@
     font-size: 16px;
   }
   
+  @media (max-width: 600px) {
+    .add-ingredient-container {
+      padding: 10px;
+    }
+
+    .add-ingredient-form,
+    .add-category-form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .add-ingredient-form input,
+    .add-ingredient-form select,
+    .add-ingredient-form button,
+    .add-category-form input,
+    .add-category-form button {
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    .ingredient-item,
+    .category-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .ingredient-item button,
+    .category-item button {
+      margin-top: 5px;
+      width: 100%;
+    }
+
+    .search-bar {
+      width: 100%;
+    }
+  }
