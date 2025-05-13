@@ -3,21 +3,22 @@ import { collection, onSnapshot, doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import '../ShoppingLists.css';
 
+const categoryEmojiMap = {
+  'chilled': '❄️',
+  'misc': '🥫',
+  'condiment': '🧂',
+  'fruit and veg': '🍎',
+};
+
 function ShoppingLists() {
   const [shoppingLists, setShoppingLists] = useState([]);
   const [expandedList, setExpandedList] = useState(null);
   const [checkedItems, setCheckedItems] = useState({});
 
   useEffect(() => {
-    const shoppingListsCollectionRef = collection(db, 'shoppingLists');
-    const unsubscribe = onSnapshot(shoppingListsCollectionRef, (snapshot) => {
-      const fetchedShoppingLists = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setShoppingLists(fetchedShoppingLists);
+    const unsubscribe = onSnapshot(collection(db, 'shoppingLists'), (snapshot) => {
+      setShoppingLists(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
     });
-
     return () => unsubscribe();
   }, []);
 
@@ -47,7 +48,6 @@ function ShoppingLists() {
   const handleDelete = async (shoppingListId) => {
     try {
       await deleteDoc(doc(db, 'shoppingLists', shoppingListId));
-      console.log('Shopping list deleted successfully');
     } catch (error) {
       console.error('Error deleting shopping list:', error);
     }
@@ -55,54 +55,46 @@ function ShoppingLists() {
 
   return (
     <div className="shopping-lists-container">
-      <h2 className="shopping-lists-title">Shopping Lists</h2>
-      {shoppingLists.length > 0 ? (
+      <h2 className="shopping-lists-title">🛒 Shopping Lists</h2>
+      {shoppingLists.length ? (
         shoppingLists.map((list) => (
-          <div
-            key={list.id}
-            className="shopping-list-card"
-            onClick={() => toggleList(list.id)}
-          >
-            <h3 className="shopping-list-name">{list.name}</h3>
+          <div key={list.id} className="shopping-list-card" onClick={() => toggleList(list.id)}>
+            <h3 className="shopping-list-name">📃 {list.name}</h3>
             {expandedList === list.id && (
               <div className="ingredients-container">
-                <h4 className="ingredients-title">Ingredients:</h4>
-
-                {/** Group by category */}
                 {Object.entries(
-                  list.ingredients.reduce((groups, ingredient, index) => {
-                    const category = ingredient.category || 'Uncategorized';
-                    if (!groups[category]) {
-                      groups[category] = [];
-                    }
-                    groups[category].push({ ...ingredient, index });
-                    return groups;
+                  list.ingredients.reduce((acc, item, idx) => {
+                    const cat = item.category || 'Uncategorized';
+                    acc[cat] = acc[cat] || [];
+                    acc[cat].push({ ...item, idx });
+                    return acc;
                   }, {})
                 ).map(([category, items]) => (
                   <div key={category} className="ingredient-category-group">
-                    <h5 className="ingredient-category-title">{category}</h5>
+                    <h5 className="ingredient-category-title">
+                      {categoryEmojiMap[category] || '📌'} {category}
+                    </h5>
                     <ul className="ingredients-list">
-                      {items.map(({ name, quantity, unit, index }) => (
-                        <li key={index} className="ingredient-item">
-                          <span className={`ingredient-text ${checkedItems[list.id]?.[index] ? 'checked' : ''}`}>
-                            {name} - {quantity} {unit}
-                          </span>
+                      {items.map(({ name, quantity, unit, idx }) => (
+                        <li key={idx} className="ingredient-item">
                           <input
                             type="checkbox"
-                            checked={!!checkedItems[list.id]?.[index]}
+                            checked={!!checkedItems[list.id]?.[idx]}
                             onClick={(e) => e.stopPropagation()}
                             onChange={(e) => {
                               e.stopPropagation();
-                              handleCheckboxChange(list.id, index);
+                              handleCheckboxChange(list.id, idx);
                             }}
                             className="ingredient-checkbox"
                           />
+                          <span className={`ingredient-text ${checkedItems[list.id]?.[idx] ? 'checked' : ''}`}>
+                            {name} - {quantity} {unit}
+                          </span>
                         </li>
                       ))}
                     </ul>
                   </div>
                 ))}
-
                 <button
                   className="delete-button"
                   onClick={(e) => {
@@ -110,7 +102,7 @@ function ShoppingLists() {
                     handleDelete(list.id);
                   }}
                 >
-                  Delete List
+                  🗑️ Delete List
                 </button>
               </div>
             )}
