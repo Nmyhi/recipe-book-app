@@ -1,66 +1,100 @@
 /* AddIngredient.css */
+
 .add-ingredient-container {
-    padding: 20px;
-    max-width: 500px;
-    margin: auto;
-  }
-  
-  .add-ingredient-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  
-  .add-ingredient-form input,
-  .add-ingredient-form button {
-    padding: 10px;
-    font-size: 16px;
-  }
-  
-  @media (max-width: 600px) {
-    .add-ingredient-container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 20px auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+h2, h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.add-ingredient-form,
+.add-category-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.add-ingredient-form input,
+.add-ingredient-form select,
+.add-ingredient-form button,
+.add-category-form input,
+.add-category-form button,
+.search-bar {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.add-ingredient-form button,
+.add-category-form button {
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-ingredient-form button:hover,
+.add-category-form button:hover {
+  background-color: #45a049;
+}
+
+.ingredient-list,
+.category-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.ingredient-item,
+.category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 8px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+}
+
+.ingredient-item button,
+.category-item button {
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.ingredient-item button:hover,
+.category-item button:hover {
+  background-color: #e64a19;
+}
+
+@media (max-width: 600px) {
+  .add-ingredient-container {
       padding: 10px;
-    }
+  }
 
-    .add-ingredient-form,
-    .add-category-form {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .add-ingredient-form input,
-    .add-ingredient-form select,
-    .add-ingredient-form button,
-    .add-category-form input,
-    .add-category-form button {
-      margin-bottom: 10px;
-      width: 100%;
-      color: #000;
-      background-color: #fff;
-    }
-
-    .ingredient-item,
-    .category-item {
+  .ingredient-item,
+  .category-item {
       flex-direction: column;
       align-items: flex-start;
-      color: #000;
-      background-color: #fff;
-    }
-
-    .ingredient-item button,
-    .category-item button {
-      margin-top: 5px;
-      width: 100%;
-    }
-
-    .search-bar {
-      width: 100%;
-      color: #000;
-      background-color: #fff;
-    }
-
-    input, select, button {
-      outline: none;
-      border: 1px solid #ccc;
-    }
   }
+
+  .ingredient-item button,
+  .category-item button {
+      width: 100%;
+      margin-top: 8px;
+  }
+}
