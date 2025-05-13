@@ -8,6 +8,7 @@ const categoryEmojiMap = {
   'misc': '🥫',
   'condiment': '🧂',
   'fruit and veg': '🍎',
+  'snack': '🍪',
 };
 
 function ShoppingLists() {
@@ -64,7 +65,7 @@ function ShoppingLists() {
               <div className="ingredients-container">
                 {Object.entries(
                   list.ingredients.reduce((acc, item, idx) => {
-                    const cat = item.category || 'Uncategorized';
+                    const cat = (item.category || 'uncategorized').toLowerCase();
                     acc[cat] = acc[cat] || [];
                     acc[cat].push({ ...item, idx });
                     return acc;
