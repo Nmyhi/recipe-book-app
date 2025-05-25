@@ -7,6 +7,7 @@ import RecipeList from './components/RecipeList';
 import ShoppingList from './components/ShoppingList';
 import ShoppingLists from './components/ShoppingLists';
 import AddIngredient from './components/AddIngredient'; // Import the new component
+import AiRecipe from './components/AiRecipe'; //AI recipe
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/shopping-list" element={<ShoppingList />} />
           <Route path="/add-ingredient" element={<AddIngredient />} /> {/* New route */}
           <Route path="/" element={<ShoppingList />} /> {/* Default route */}
+          <Route path="/ai-recipe" element={<AiRecipe />} />
         </Routes>
       </div>
     </Router>
