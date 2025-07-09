@@ -8,6 +8,7 @@ import ShoppingList from './components/ShoppingList';
 import ShoppingLists from './components/ShoppingLists';
 import AddIngredient from './components/AddIngredient'; // Import the new component
 import AiRecipe from './components/AiRecipe'; //AI recipe
+import AdminRecipeImporter from './components/AdminRecipeImporter'; //admin json importer
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
+          <Route path="/admin" element={<AdminRecipeImporter />} />
           <Route path="/add-recipe" element={<AddRecipe />} />
           <Route path="/edit-recipes" element={<RecipeList />} />
           <Route path="/view-shopping-lists" element={<ShoppingLists />} />

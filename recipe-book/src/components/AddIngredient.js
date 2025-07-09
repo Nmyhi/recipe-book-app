@@ -1,3 +1,7 @@
+/**
+ * Enhanced AddIngredient component with edit/delete functionality
+ */
+
 import React, { useState, useEffect } from 'react';
 import { addDoc, collection, getDocs, deleteDoc, updateDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -11,6 +15,7 @@ function AddIngredient() {
   const [categories, setCategories] = useState([]);
   const [newCategory, setNewCategory] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [editId, setEditId] = useState(null);
 
   useEffect(() => {
     fetchIngredients();
@@ -31,11 +36,32 @@ function AddIngredient() {
     e.preventDefault();
     if (!name || !unit || !category) return;
 
-    await addDoc(collection(db, 'ingredients'), { name, unit, category });
+    if (editId) {
+      await updateDoc(doc(db, 'ingredients', editId), { name, unit, category });
+      setEditId(null);
+    } else {
+      await addDoc(collection(db, 'ingredients'), { name, unit, category });
+    }
+
     setName('');
     setUnit('');
     setCategory('');
     fetchIngredients();
+  };
+
+  const handleDelete = async (id) => {
+    const confirm = window.confirm('Are you sure you want to delete this ingredient?');
+    if (confirm) {
+      await deleteDoc(doc(db, 'ingredients', id));
+      fetchIngredients();
+    }
+  };
+
+  const handleEdit = (ingredient) => {
+    setName(ingredient.name);
+    setUnit(ingredient.unit);
+    setCategory(ingredient.category);
+    setEditId(ingredient.id);
   };
 
   const filteredIngredients = ingredients.filter((ingredient) =>
@@ -44,7 +70,7 @@ function AddIngredient() {
 
   return (
     <div className="add-ingredient-container">
-      <h2>Add Ingredient</h2>
+      <h2>{editId ? 'Edit Ingredient' : 'Add Ingredient'}</h2>
       <form className="add-ingredient-form" onSubmit={handleSubmit}>
         <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
         <input type="text" placeholder="Unit" value={unit} onChange={(e) => setUnit(e.target.value)} required />
@@ -54,7 +80,7 @@ function AddIngredient() {
             <option key={cat.id} value={cat.name}>{cat.name}</option>
           ))}
         </select>
-        <button type="submit">Add</button>
+        <button type="submit">{editId ? 'Update' : 'Add'}</button>
       </form>
 
       <input
@@ -70,6 +96,8 @@ function AddIngredient() {
           {filteredIngredients.map((ingredient) => (
             <li key={ingredient.id} className="ingredient-item">
               <span>{ingredient.name} ({ingredient.unit}) - {ingredient.category}</span>
+              <button onClick={() => handleEdit(ingredient)}>Edit</button>
+              <button onClick={() => handleDelete(ingredient.id)}>Delete</button>
             </li>
           ))}
         </ul>
